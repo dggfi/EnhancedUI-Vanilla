@@ -3,8 +3,8 @@
         "target": "ES2015",
         "module": "CommonJs",
         "moduleResolution": "node",
-        "strict": true,
-        "noUnusedLocals": true,
+        "strict": false,
+        "noUnusedLocals": false,
         "noImplicitAny": true,
         "sourceMap": true,
         "esModuleInterop": true,
@@ -13,6 +13,7 @@
         "jsx": "react",
         "skipLibCheck": true
     },
+    "files": ["./types.ts"],
     "include": [
         "src/*",
         "types.ts"
