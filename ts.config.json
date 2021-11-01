@@ -13,11 +13,11 @@
         "jsx": "react",
         "skipLibCheck": true
     },
-    "files": ["./types.ts"],
+    "files": ["types.d.ts"],
     "include": [
-        "src/*",
-        "types.ts"
+        "src/*"
     ],
     "exclude": [
-        "./node_modules/"    ]
+        "./node_modules/"
+    ]
 }
