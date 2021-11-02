@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { startCefSharp } from "./cefsharp/cefsharp";
+import { startCefSharp, useGameState } from "./cefsharp/cefsharp";
 import useDebounce from "./utils/useDebounce";
 import useToggle from "./utils/useToggle";
 import "./styles/styles";
+import { IBlockViewModel } from "../types";
 
 const frameWindow = 60 / 1000;
 
@@ -15,7 +16,9 @@ const App: React.FunctionComponent = () => {
 
     useEffect(() => {
         startCefSharp()
-            .then(() => setStateBinded(true))
+            .then(() => { 
+                setStateBinded(true);
+            })
             .catch((e: Error) => {
                 alert(e);
                 console.log(e.stack);
@@ -30,16 +33,31 @@ const App: React.FunctionComponent = () => {
         setTElapsed(elapsed);
         setElapsedFrames(nFrames);
         toggleRebounce();
-        console.log("re");
     }, frameWindow, [rebounce])
 
+    // Oh boy
+    const gameState = useGameState();
+
     return (
-        <div className="relative w-screen h-screen font-engineer text-xl text-blueGray-700 bg-white bg-opacity-90">
+        <div className="relative w-screen h-screen font-engineer text-3xl text-blueGray-700 bg-white bg-opacity-90">
             {stateBinded ? (
                 <>
                     <p>Test, test.</p>
                     <p>T: {Math.trunc(tElapsed / 1000)}</p>
                     <p>F: {elapsedFrames}</p>
+                    <p>Oi</p>
+                    <ul>
+                        {Object.entries(gameState).map((entry) => {
+                            let block: IBlockViewModel = entry[1];
+                            return (
+                                <li key={entry[0]}>
+                                    <p>ID: {block.Id}</p>
+                                    <p>Custom Name: {block.Name}</p>
+                                    <p>Status: {block.Size}</p>
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </>
             ) : (
                 <p>State not bound.</p>

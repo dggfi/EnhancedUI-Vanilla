@@ -41,9 +41,12 @@ export interface IBlockViewModel {
 }
 
 export interface IPropertyModelView {
-    readonly Value?: any,
+    readonly Value?: boolean | number | Function | IColor | unknown,
     readonly Id: string,
     readonly TypeName: string,
     // Same as with IBlockViewModel
     // readonly GetHashCode: number
 }
+
+export interface IStringBuilder {}
+export interface IColor {}
