@@ -4,6 +4,7 @@ import useDebounce from "./hooks/useDebounce";
 import useToggle from "./hooks/useToggle";
 import "./styles/styles";
 import { IBlockViewModel } from "../types";
+import useRebounce from "./hooks/useRebounce";
 
 const frameWindow = 60 / 1000;
 
@@ -12,7 +13,6 @@ const App: React.FunctionComponent = () => {
     const [tEpoch] = useState<number>(Date.now());
     const [tElapsed, setTElapsed] = useState<number>(Date.now());
     const [elapsedFrames, setElapsedFrames] = useState<number>(0);
-    const [rebounce, toggleRebounce] = useToggle(false);
 
     useEffect(() => {
         startCefSharp()
@@ -23,17 +23,14 @@ const App: React.FunctionComponent = () => {
                 alert(e);
                 console.log(e.stack);
             });
-
-        toggleRebounce();
     }, [])
 
-    useDebounce(() => {
+    useRebounce(() => {
         const elapsed = Date.now() - tEpoch;
         const nFrames = Math.trunc(tElapsed * frameWindow);
         setTElapsed(elapsed);
         setElapsedFrames(nFrames);
-        toggleRebounce();
-    }, frameWindow, [rebounce])
+    }, 1000, [], true)
 
     // Oh boy
     const gameState = useGameState();
@@ -51,7 +48,7 @@ const App: React.FunctionComponent = () => {
                             let block: IBlockViewModel = entry[1];
                             return (
                                 <li key={entry[0]}>
-                                    <p>ID: {block.Id}</p>
+                                    <p>IDe: {block.Id}</p>
                                     <p>Custom Name: {block.Name}</p>
                                     <p>Status: {block.Size}</p>
                                 </li>
