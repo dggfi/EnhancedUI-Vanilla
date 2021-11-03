@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
-import useTimeout from './useTimeout';
+import useDebounce from './useDebounce';
 import useToggle from './useToggle';
 
-const useDebounce = (cb: Function, delay: number, dependencies: any[]) => {
+const useRebounce = (cb: Function, delay: number, dependencies: any[], rebounce: boolean,) => {
     const [trigger, Rebounce] = useToggle(false);
-
-    const { reset, clear } = useTimeout(() => { cb; Rebounce() }, delay);
-    useEffect(reset, [...dependencies, reset, trigger]);
-    useEffect(clear, []);
+    useDebounce(() => { 
+        if (rebounce) Rebounce();
+        return cb();
+    }, delay, [...dependencies, trigger]);
 }
 
-export default useDebounce;
+export default useRebounce;
