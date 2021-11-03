@@ -8,7 +8,7 @@ let {
     CefSharp,
 } = window;
 
-interface IBlockStatesContainer { [key: number]: IBlockViewModel }
+export interface IBlockStatesContainer { [key: number]: IBlockViewModel }
 export let blockStates: IBlockStatesContainer = {}
 export const gameStateSubject = new Subject<IBlockStatesContainer>();
 
