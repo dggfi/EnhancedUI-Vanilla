@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { startCefSharp, useGameState } from "./cefsharp/cefsharp";
-import useDebounce from "./utils/useDebounce";
-import useToggle from "./utils/useToggle";
+import useDebounce from "./hooks/useDebounce";
+import useToggle from "./hooks/useToggle";
 import "./styles/styles";
 import { IBlockViewModel } from "../types";
 
